@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="{{ app()->getLocale() }}">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeleteUser</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="./theme.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+	<nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbarEexample9">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="./cuosuleToy.html"> Capsule toy</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="navbarEexample9">
+				<p class="navbar-text" style="color: #FFFFFF;">- LOGIN USER ！</p>
+				<a href="./index.html"
+					class="btn btn-default navbar-btn navbar-right" role="button">Logout</a>
+				<a href="./userList.html"
+					class="btn btn-default navbar-btn navbar-right" role="button">List</a>
+				<a href="./add.html" class="btn btn-default navbar-btn navbar-right"
+					role="button">Create</a>
+			</div>
+		</div>
+	</nav>
+
+	<div class="row">
+		<div>
+			<h1 class="text-center">Delete user</h1>
+		</div>
+		<div class="col-sm-10 col-xs-offset-1">
+			<hr>
+
+			<p>ログインID： id0001 を本当に削除してよろしいでしょうか？</p>
+			<hr>
+
+			<div class="btn-group btn-group-justified" role="group">
+				<a href="./userList.html" class="btn btn-default" role="button">キャンセル</a>
+				<a href="./userList.html" class="btn btn-default" role="button">OK</a>
+			</div>
+
+		</div>
+
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
