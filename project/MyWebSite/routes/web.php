@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Controller;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,12 +13,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::post('/main', function () {
-    return view('main');
-});
+//Route::get('/user', 'UsersController@メソッド名');
 
-    //Route::get('/user', 'UsersController@メソッド名');
+
+Route::get('/','Controller@listAll');
+
+Route::post('main' , 'Controller@login');
+
+Route::get('/logout','Controller@logout');
+
