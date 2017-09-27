@@ -17,12 +17,26 @@ use App\Http\Controllers\Controller;
 //     return view('welcome');
 // });
 
-//Route::get('/user', 'UsersController@メソッド名');
+//Route::get('/user', 'Controller@メソッド名');
 
 
-Route::get('/','Controller@listAll');
+Route::get('/','Controller@view');
 
 Route::post('main' , 'Controller@login');
 
 Route::get('/logout','Controller@logout');
+
+Route::get('/userList','Controller@userList');
+
+Route::get('/mainScreen', function () {return view('main');});
+
+Route::get('/detail','Controller@userdetail');
+
+Route::get('/create', function () {return view('create');});
+
+Route::post('/userCreate' , 'Controller@userCreate');
+
+Route::get('/update' , 'Controller@update');
+
+Route::post('/userUpdate' , 'Controller@userUpdate');
 

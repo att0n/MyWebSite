@@ -4,13 +4,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CupsuleToy</title>
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-	rel="stylesheet">
+<title>UserList</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 <?php
     $loginUser = session('loginUserKey');
 ?>
+
 </head>
 <body>
 
@@ -20,7 +19,7 @@
 				<button type="button" class="navbar-toggle collapsed"
 					data-toggle="collapse" data-target="#navbarEexample9">
 					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
+					<spanclass="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
@@ -37,28 +36,48 @@
 	</nav>
 
 	<div class="row">
-		<div class="col-xs-8 col-xs-offset-2">
-			<h1 class="text-center">Capsule toy</h1>
+		<div>
+			<h1 class="text-center">User list</h1>
 		</div>
-	</div>
-
-	<div class="col-sm-8 col-sm-offset-2">
-		<div class="pull-right">
-			<a href="#" class="btn btn-default" role="button">Character List</a>
-		</div>
-	</div>
-	<div class="col-sm-8 col-sm-offset-2">
-
-		<hr>
-		<h3><p class="small">回したい回数のボタンを押してください</p></h3>
-		<div class="btn-group btn-group-justified" role="group">
-			<a href="#?num=1" class="btn btn-default" role="button">1回</a>
-		</div>
-		<div class="col-xs-12" style="height: 1em;"></div>
-		<div class="btn-group btn-group-justified" role="group">
-			<a href="#?num=10" class="btn btn-default" role="button">10回</a>
+		<div class="col-sm-10 col-xs-offset-1">
+			<hr>
 		</div>
 
+		<div class="col-xs-10 col-xs-offset-1">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>User name</th>
+						<th>Complate rate</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<?php for($i=0; $i<count($userList); $i++){?>
+					<tr>
+						<th><?php echo $userList[$i]->id?></th>
+						<td><?php echo $userList[$i]->name?></td>
+						<td>5%</td>
+						<td>
+							<a href="./detail?id=<?php echo $userList[$i]->id ?>" class="btn btn-primary">Detail</a>
+							<?php if($loginUser->id == 1){ ?>
+								<a href="./update?id=<?php echo $userList[$i]->id ?>" class="btn btn-success">Update</a>
+
+								<a href="#" class="btn btn-danger">Delete</a>
+
+							<?php }else if($loginUser->id == $userList[$i]->id){ ?>
+								<a href="./update?id=<?php echo $userList[$i]->id ?>" class="btn btn-success">Update</a>
+							<?php } ?>
+						</td>
+					</tr>
+					<?php }?>
+
+				</tbody>
+			</table>
+
+		</div>
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
