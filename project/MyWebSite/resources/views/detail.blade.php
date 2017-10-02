@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Detail</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/theme.min.css" rel="stylesheet">
 <?php
     $loginUser = session('loginUserKey');
 ?>

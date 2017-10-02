@@ -1,17 +1,18 @@
+
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CupsuleToy</title>
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-	rel="stylesheet">
-	<link href="./css/theme.min.css" rel="stylesheet">
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/theme.min.css" rel="stylesheet">
 <?php
     $loginUser = session('loginUserKey');
 ?>
+
+<title>CharacterList</title>
 </head>
 <body>
 
@@ -37,29 +38,49 @@
 		</div>
 	</nav>
 
+
 	<div class="row">
-		<div class="col-xs-8 col-xs-offset-2">
-			<h1 class="text-center">Capsule toy</h1>
+		<div>
+			<h1 class="text-center">Character List</h1>
+			<h3>
+				<p class="small text-center">達成率 100%</p>
+			</h3>
+		</div>
+		<div class="col-sm-10 col-xs-offset-1">
+			<div class="input-group">
+				<span class="input-group-addon">ID</span>
+					<input type="text"class="form-control" placeholder="character ID" name="chara_id">
+					<span class="input-group-btn">
+					<button type="button" class="btn btn-default">Search</button>
+				</span>
+			</div>
+			<div class="col-xs-12" style="height: 1em;"></div>
+			<div class="input-group">
+				<span class="input-group-addon">name</span>
+					<input type="text" class="form-control" placeholder="character name" name="chara_name">
+					<span class="input-group-btn">
+					<button type="button" class="btn btn-default">Search</button>
+				</span>
+			</div>
+			<hr>
 		</div>
 	</div>
 
-	<div class="col-sm-8 col-sm-offset-2">
-		<div class="pull-right">
-			<a href="./characterList" class="btn btn-default" role="button">Character List</a>
-		</div>
-	</div>
-	<div class="col-sm-8 col-sm-offset-2">
 
-		<hr>
-		<h3><p class="small">回したい回数のボタンを押してください</p></h3>
-		<div class="btn-group btn-group-justified" role="group">
-			<a href="./gatya?num=1" class="btn btn-default" role="button">1回</a>
-		</div>
-		<div class="col-xs-12" style="height: 1em;"></div>
-		<div class="btn-group btn-group-justified" role="group">
-			<a href="./gatya?num=10" class="btn btn-default" role="button">10回</a>
-		</div>
+	<div class="col-xs-10 col-xs-offset-1">
+		<table>
+			<tbody>
+				<tr>
+				<?php for($i=0; $i<count($chara); $i++){ ?>
 
+					<td><a href="./characterDetail?id=<?php echo $chara[$i]->id?>" class="thumbnail">
+					<img src="./images/<?php echo $chara[$i]->chara_image?>">
+					</a></td>
+
+				<?php } ?>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

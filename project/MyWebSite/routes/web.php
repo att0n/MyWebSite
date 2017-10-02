@@ -40,3 +40,13 @@ Route::get('/update' , 'Controller@update');
 
 Route::post('/userUpdate' , 'Controller@userUpdate');
 
+Route::get('/delete' , 'Controller@userDelete');
+
+Route::get('/characterList' , 'Controller@characterList');
+
+Route::get('/characterDetail' , 'Controller@characterDetail');
+
+Route::get('/gatya' , 'Controller@gatya');
+
+Route::post('/gatyaResult','Controller@gatyaResult');
+

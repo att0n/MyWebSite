@@ -12,13 +12,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function view()
-    {
-        // userテーブルのレコードを全て取得
-        //$users = DB::table('user');
-        //return view('',['users' => $users]);
+    public function view(){
         return view('welcome');
     }
+
     // ログイン処理
     public function login()
     {
@@ -40,16 +37,19 @@ class Controller extends BaseController
             return view('main');
         }
     }
+
     //ログアウト処理
     public function logout(){
         session()->forget('loginUserKey');
         return view('welcome');
     }
+
     //ユーザ一覧
     public function userList(){
         $userList = DB::table('user')->where('id','!=','1')->get();
         return view('userList',['userList' => $userList]);
     }
+
     //ユーザ詳細表示
     public function userDetail(){
         $user_id = $_GET['id'];
@@ -64,6 +64,7 @@ class Controller extends BaseController
 
         return view('detail',['user' => $user]);
     }
+
     //ユーザ新規登録
     public function userCreate(){
         $login_id = $_POST['login_id'];
@@ -86,12 +87,14 @@ class Controller extends BaseController
         }
         return view('main');
     }
+
     //ユーザ更新画面表示
     public function update(){
         $loginUser_id = $_GET['id'];
         $user = DB::table('user')->where('id', $loginUser_id)->first();
         return view('update',['user' => $user]);
     }
+
     //ユーザ更新
     public function userUpdate(){
         $id = $_GET['id'];
@@ -110,5 +113,80 @@ class Controller extends BaseController
             DB::update('UPDATE user SET name=?,birth_date=?,update_date=? WHERE id=?',[$_POST['name'],$_POST['birth'],$today,$id]);
         }
         return view('main');
+    }
+
+    //ユーザの削除
+    public function userDelete(){
+        $id = $_GET['id'];
+        DB::table('user')->where('id', $id)->delete();
+        return view('main');
+    }
+
+    //キャラクターリスト表示
+    public function characterList(){
+        $chara = DB::table('chara')->get();
+
+        return view('characterList', ['chara' => $chara]);
+    }
+
+    //キャラクター詳細
+    public function characterDetail(){
+        $chara_id = $_GET['id'];
+        $chara = DB::table('chara')->where('id', $chara_id)->first();
+
+        return view('characterDetail', ['chara' => $chara]);
+    }
+
+    //ガチャ
+    public function gatya(){
+        $cnt = $_GET['num'];
+        $chara = DB::table('chara')->get();
+        $resultArray = array();
+        $ssr = false;
+        $sr = false;
+        $r = false;
+
+        if($cnt == 1){
+            $hitkey = rand(0, count($chara)-1);
+            $resultArray[] = $chara[$hitkey];
+
+            if($resultArray[0]->chara_rate == 3){$ssr = true;
+            }elseif ($resultArray[0]->chara_rate == 2){$sr = true;
+            }else{$r = true;}
+        }else{
+            for($i=0; $i<10; $i++){
+                $hitkey = rand(0, count($chara)-1);
+                $resultArray[] = $chara[$hitkey];
+            }
+            for ($i=0; $i<$cnt; $i++){
+                if($resultArray[$i]->chara_rate == 3){$ssr = true;
+                }else if($resultArray[$i]->chara_rate == 2){$sr = true;
+                }else {$r = true;}
+            }
+        }
+        if($ssr == true){$rate ="ssr";
+        }elseif ($ssr == false && $sr == true){$rate = "sr";
+        }else{$rate = "r";}
+
+        return view('result' , ['result' => $resultArray,'rate' => $rate]);
+    }
+
+    //ガチャ結果画面
+    public function gatyaResult(){
+        $resultArray = array();
+
+        if(!empty($_POST['result1'])){
+            for($i=0; $i<10; $i++){
+                ${'id{$i}'} = $_POST['result'.$i];
+                $chara = DB::table('chara')->where('id', ${'id{$i}'})->first();
+                $resultArray[] = $chara;
+            }
+        }else{
+            $id1 = $_POST['result0'];
+            $chara = DB::table('chara')->where('id', $id1)->first();
+            $resultArray[] = $chara;
+        }
+
+        return view('gatyaResult', ['result' => $resultArray]);
     }
 }

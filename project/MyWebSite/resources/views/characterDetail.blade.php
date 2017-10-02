@@ -4,11 +4,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CupsuleToy</title>
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-	rel="stylesheet">
-	<link href="./css/theme.min.css" rel="stylesheet">
+<title>Character Detail</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/theme.min.css" rel="stylesheet">
 <?php
     $loginUser = session('loginUserKey');
 ?>
@@ -38,28 +36,24 @@
 	</nav>
 
 	<div class="row">
-		<div class="col-xs-8 col-xs-offset-2">
-			<h1 class="text-center">Capsule toy</h1>
+		<div class="col-sm-10 col-xs-offset-1">
+			<h1><?php echo $chara->chara_name ?>
+				<div class="pull-right">
+					<a href="./characterList" class="btn btn-default" role="button">Back</a>
+				</div>
+			</h1><hr>
 		</div>
 	</div>
 
-	<div class="col-sm-8 col-sm-offset-2">
-		<div class="pull-right">
-			<a href="./characterList" class="btn btn-default" role="button">Character List</a>
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1 media">
+			<a class="media-left"> <img src="<?php echo $chara->chara_image ?>"></a>
+			<div class="media-body">
+				<div class="well well-lg">ID：<?php echo $chara->id ?></div>
+				<div class="well well-lg">Birthday：<?php echo $chara->chara_birth ?></div>
+				<div class="well well-lg">blood：<?php echo $chara->chara_blood ?></div>
+			</div>
 		</div>
-	</div>
-	<div class="col-sm-8 col-sm-offset-2">
-
-		<hr>
-		<h3><p class="small">回したい回数のボタンを押してください</p></h3>
-		<div class="btn-group btn-group-justified" role="group">
-			<a href="./gatya?num=1" class="btn btn-default" role="button">1回</a>
-		</div>
-		<div class="col-xs-12" style="height: 1em;"></div>
-		<div class="btn-group btn-group-justified" role="group">
-			<a href="./gatya?num=10" class="btn btn-default" role="button">10回</a>
-		</div>
-
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

@@ -6,9 +6,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>UserList</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/theme.min.css" rel="stylesheet">
 <?php
     $loginUser = session('loginUserKey');
 ?>
+<script type="text/javascript">
+	function sample(id) {
+		if(window.confirm("ID:"+id+" を削除しますか？")){
+			location.href = "./delete?id="+ id;
+		}
+	}
+</script>
 
 </head>
 <body>
@@ -64,9 +72,7 @@
 							<a href="./detail?id=<?php echo $userList[$i]->id ?>" class="btn btn-primary">Detail</a>
 							<?php if($loginUser->id == 1){ ?>
 								<a href="./update?id=<?php echo $userList[$i]->id ?>" class="btn btn-success">Update</a>
-
-								<a href="#" class="btn btn-danger">Delete</a>
-
+								<a onclick="sample(<?php echo $userList[$i]->id?>)" class="btn btn-danger">Delete</a>
 							<?php }else if($loginUser->id == $userList[$i]->id){ ?>
 								<a href="./update?id=<?php echo $userList[$i]->id ?>" class="btn btn-success">Update</a>
 							<?php } ?>
@@ -76,7 +82,6 @@
 
 				</tbody>
 			</table>
-
 		</div>
 	</div>
 
