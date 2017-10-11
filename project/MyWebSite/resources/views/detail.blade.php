@@ -88,7 +88,7 @@
 			<div class="form-group">
 				<label class="col-sm-5 control-label" for="InputUserName">Complate rate</label>
 				<div class="col-sm-5">
-					<p class="form-control-static text-center">30％</p>
+					<p class="form-control-static text-center"><?php echo $have_chara ?>／<?php echo $all_chara ?></p>
 				</div>
 			</div>
 		</form>

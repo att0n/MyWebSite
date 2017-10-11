@@ -71,7 +71,7 @@
 					<tr>
 						<th><?php echo $userList[$i]->id?></th>
 						<td><?php echo $userList[$i]->name?></td>
-						<td>5%</td>
+						<td><?php echo $have_chara->get($userList[$i]->id); ?>／<?php echo $all_chara ?></td>
 						<td>
 							<a href="./detail?id=<?php echo $userList[$i]->id ?>" class="btn btn-primary">Detail</a>
 							<?php if($loginUser->id == 1){ ?>

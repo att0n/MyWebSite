@@ -49,7 +49,7 @@
 		<div>
 			<h1 class="text-center">Character List</h1>
 			<h3>
-				<p class="small text-center">達成率 100%</p>
+				<p class="small text-center">達成率 <?php echo $chara->count() ?>／<?php echo $all_chara?></p>
 			</h3>
 		</div>
 		<div class="col-sm-10 col-xs-offset-1">
@@ -79,7 +79,7 @@
 				<tr>
 				<?php for($i=0; $i<count($chara); $i++){ ?>
 
-					<td><a href="./characterDetail?id=<?php echo $chara[$i]->id?>" class="thumbnail">
+					<td><a href="./characterDetail?id=<?php echo $chara[$i]->chara_id?>&uId=<?php echo $loginUser->id ?>" class="thumbnail">
 					<img src="./images/<?php echo $chara[$i]->chara_image?>">
 					</a></td>
 

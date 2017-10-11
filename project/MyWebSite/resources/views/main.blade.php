@@ -50,7 +50,7 @@
 
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="pull-right">
-			<a href="./characterList" class="btn btn-default" role="button">Character List</a>
+			<a href="./characterList?id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">Character List</a>
 		</div>
 	</div>
 	<div class="col-sm-8 col-sm-offset-2">
@@ -58,11 +58,11 @@
 		<hr>
 		<h3><p class="small">回したい回数のボタンを押してください</p></h3>
 		<div class="btn-group btn-group-justified" role="group">
-			<a href="./gatya?num=1" class="btn btn-default" role="button">1回</a>
+			<a href="./gatya?num=1&id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">1回</a>
 		</div>
 		<div class="col-xs-12" style="height: 1em;"></div>
 		<div class="btn-group btn-group-justified" role="group">
-			<a href="./gatya?num=10" class="btn btn-default" role="button">10回</a>
+			<a href="./gatya?num=10&id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">10回</a>
 		</div>
 
 	</div>

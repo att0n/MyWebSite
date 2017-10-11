@@ -46,12 +46,27 @@ class Controller extends BaseController
 
     //ユーザ一覧
     public function userList(){
+        $all_chara = DB::table('chara')->count();
+        $collection = collect(['1' => 'admin']);
         $userList = DB::table('user')->where('id','!=','1')->get();
-        return view('userList',['userList' => $userList]);
+
+        for($i=0; $i<count($userList); $i++){
+            $chara = DB::table('chara_have')
+                ->join('chara','chara_have.chara_id','=','chara.id')
+                ->select(DB::raw('count(*) as cnt, chara.*, chara_have.*'))
+                ->where('chara_have.id',$userList[$i]->id)
+                ->groupBy('chara_have.chara_id')
+                ->get();
+
+            $collection->put($userList[$i]->id, $chara->count());
+        }
+
+        return view('userList',['userList' => $userList, 'all_chara' => $all_chara, 'have_chara' => $collection]);
     }
 
     //ユーザ詳細表示
     public function userDetail(){
+        $all_chara = DB::table('chara')->count();
         $user_id = $_GET['id'];
         $user = DB::table('user')->where('id', $user_id)->first();
 
@@ -62,7 +77,14 @@ class Controller extends BaseController
         $user->create_date = $create;
         $user->update_date = $update;
 
-        return view('detail',['user' => $user]);
+        $chara = DB::table('chara_have')
+            ->join('chara','chara_have.chara_id','=','chara.id')
+            ->select(DB::raw('count(*) as cnt, chara.*, chara_have.*'))
+            ->where('chara_have.id', $user_id)
+            ->groupBy('chara_have.chara_id')
+            ->get();
+
+            return view('detail',['user' => $user, 'all_chara' => $all_chara ,'have_chara' => $chara->count()]);
     }
 
     //ユーザ新規登録
@@ -124,21 +146,41 @@ class Controller extends BaseController
 
     //キャラクターリスト表示
     public function characterList(){
-        $chara = DB::table('chara')->get();
+        $userID = $_GET['id'];
 
-        return view('characterList', ['chara' => $chara]);
+        $all_chara = DB::table('chara')->count();
+
+        $chara = DB::table('chara_have')
+            ->join('chara','chara_have.chara_id','=','chara.id')
+            ->select(DB::raw('count(*) as cnt, chara.*, chara_have.*'))
+            ->where('chara_have.id',$userID)
+            ->groupBy('chara_have.chara_id')
+            ->get();
+
+        return view('characterList', ['chara' => $chara,'all_chara' => $all_chara]);
     }
 
     //キャラクター詳細
     public function characterDetail(){
+        $user_id = $_GET['uId'];
         $chara_id = $_GET['id'];
-        $chara = DB::table('chara')->where('id', $chara_id)->first();
+
+        $chara = DB::table('chara_have')
+            ->join('chara','chara_have.chara_id','=','chara.id')
+            ->select(DB::raw('count(*) as cnt, chara.*, chara_have.*'))
+            ->where([
+                ['chara_have.id', '=', $user_id],
+                ['chara_have.chara_id', '=', $chara_id]
+            ])
+            ->groupBy('chara_have.chara_id')
+            ->first();
 
         return view('characterDetail', ['chara' => $chara]);
     }
 
     //ガチャ
     public function gatya(){
+        $id = $_GET['id'];
         $cnt = $_GET['num'];
         $chara = DB::table('chara')->get();
         $resultArray = array();
@@ -149,6 +191,7 @@ class Controller extends BaseController
         if($cnt == 1){
             $hitkey = rand(0, count($chara)-1);
             $resultArray[] = $chara[$hitkey];
+            DB::table('chara_have')->insert(['id' => $id, 'chara_id' => $resultArray[0]->id]);
 
             if($resultArray[0]->chara_rate == 3){$ssr = true;
             }elseif ($resultArray[0]->chara_rate == 2){$sr = true;
@@ -159,6 +202,8 @@ class Controller extends BaseController
                 $resultArray[] = $chara[$hitkey];
             }
             for ($i=0; $i<$cnt; $i++){
+                DB::table('chara_have')->insert(['id' => $id, 'chara_id' => $resultArray[$i]->id]);
+
                 if($resultArray[$i]->chara_rate == 3){$ssr = true;
                 }else if($resultArray[$i]->chara_rate == 2){$sr = true;
                 }else {$r = true;}

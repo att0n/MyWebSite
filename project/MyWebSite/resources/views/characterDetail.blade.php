@@ -46,7 +46,7 @@
 		<div class="col-sm-10 col-xs-offset-1">
 			<h1><?php echo $chara->chara_name ?>
 				<div class="pull-right">
-					<a href="./characterList" class="btn btn-default" role="button">Back</a>
+					<a href="./characterList?id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">Back</a>
 				</div>
 			</h1><hr>
 		</div>
@@ -54,11 +54,12 @@
 
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 media">
-			<a class="media-left"> <img src="<?php echo $chara->chara_image ?>"></a>
+			<a class="media-left"> <img src="./images/<?php echo $chara->chara_image ?>"></a>
 			<div class="media-body">
 				<div class="well well-lg">ID：<?php echo $chara->id ?></div>
 				<div class="well well-lg">Birthday：<?php echo $chara->chara_birth ?></div>
 				<div class="well well-lg">blood：<?php echo $chara->chara_blood ?></div>
+				<div class="well well-lg">出現回数：<?php echo $chara->cnt ?>回</div>
 			</div>
 		</div>
 	</div>
