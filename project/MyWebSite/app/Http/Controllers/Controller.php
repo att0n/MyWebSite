@@ -188,9 +188,29 @@ class Controller extends BaseController
         $sr = false;
         $r = false;
 
+        //確立の合計値
+        $max = 0;
+         foreach ($chara as $chara_rate){
+             if($chara_rate->chara_rate==3){$max += 5;
+             }elseif ($chara_rate->chara_rate==2){$max += 30;
+             }else {$max += 100;}
+         }
+
         if($cnt == 1){
-            $hitkey = rand(0, count($chara)-1);
-            $resultArray[] = $chara[$hitkey];
+            $hitRand = rand(0,$max-1);
+            $sumPer = 0;
+
+            for($i=0; $i<count($chara); $i++){
+                if($chara[$i]->chara_rate==3){$sumPer += 5;
+                }elseif ($chara[$i]->chara_rate==2){$sumPer += 30;
+                }else {$sumPer += 100;}
+                $hitChara = $chara[$i];
+                if($hitRand < $sumPer){
+                    break;
+                }
+            }
+
+            $resultArray[] = $hitChara;
             DB::table('chara_have')->insert(['id' => $id, 'chara_id' => $resultArray[0]->id]);
 
             if($resultArray[0]->chara_rate == 3){$ssr = true;
@@ -198,8 +218,20 @@ class Controller extends BaseController
             }else{$r = true;}
         }else{
             for($i=0; $i<10; $i++){
-                $hitkey = rand(0, count($chara)-1);
-                $resultArray[] = $chara[$hitkey];
+                $hitRand = rand(0,$max-1); //echo $hitRand;
+                $sumPer = 0;
+
+                for($j=0; $j<count($chara); $j++){
+                    if($chara[$j]->chara_rate==3){$sumPer += 5;
+                    }elseif ($chara[$j]->chara_rate==2){$sumPer += 30;
+                    }else {$sumPer += 100;}
+                    $hitChara = $chara[$j];
+                    if($hitRand < $sumPer){
+                        break;
+                    }
+                }
+                $resultArray[] = $hitChara;
+
             }
             for ($i=0; $i<$cnt; $i++){
                 DB::table('chara_have')->insert(['id' => $id, 'chara_id' => $resultArray[$i]->id]);
@@ -208,7 +240,7 @@ class Controller extends BaseController
                 }else if($resultArray[$i]->chara_rate == 2){$sr = true;
                 }else {$r = true;}
             }
-        }
+         }
         if($ssr == true){$rate ="ssr";
         }elseif ($ssr == false && $sr == true){$rate = "sr";
         }else{$rate = "r";}

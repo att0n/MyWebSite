@@ -17,7 +17,7 @@ if($rate == "ssr"){
 <!-- レアリティ演出css -->
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-<link href="./theme.min.css" rel="stylesheet">
+<link href="./css/theme.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/animations.css">
 
 </head>
@@ -30,16 +30,16 @@ if($rate == "ssr"){
 			<input type="hidden" class="form-control" name="result<?php echo $i ?>" value="<?php echo $result[$i]->id ?>">
 		<?php } ?>
 
-		<button type="submit" class="btn btn-default">送信</button>
-	</form>
+		<div class="parent">
+			<div class="inner">
+				<div class="floating">
+					<h1>▼ CLICK</h1>
+				</div>
+				<button type="submit" class="btn btn-default btn-group btn-group-justified">result</button>
+			</div>
+		</div>
 
-<!-- 	<div class="parent"> -->
-<!-- 		<div class="inner"> -->
-<!-- 			<div class="floating"> -->
-<!-- 				<a href="./gatyaResult"><h1>▼ CLICK</h1></a> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
+	</form>
 
 </body>
 </html>
