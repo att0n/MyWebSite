@@ -5,13 +5,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CupsuleToy</title>
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-	rel="stylesheet">
-	<link href="./css/theme.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/theme.min.css" rel="stylesheet">
 <?php
     $loginUser = session('loginUserKey');
 ?>
+<script type="text/javascript">
+	function logout() {
+		if(window.confirm("ログアウトしますか？")){
+			location.href = "./logout";
+		}
+	}
+</script>
 </head>
 <body>
 
@@ -30,7 +35,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarEexample9">
 				<p class="navbar-text" style="color: #FFFFFF;">- <?php echo $loginUser->name?> さん！</p>
-				<a href="./logout" class="btn btn-default navbar-btn navbar-right" role="button">Logout</a>
+				<a onclick="logout()" class="btn btn-default navbar-btn navbar-right" role="button">Logout</a>
 				<a href="./userList" class="btn btn-default navbar-btn navbar-right" role="button">List</a>
 				<a href="./create" class="btn btn-default navbar-btn navbar-right" role="button">Create</a>
 			</div>
