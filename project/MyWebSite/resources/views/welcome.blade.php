@@ -5,10 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
-	rel="stylesheet">
-	<link href="./css/theme.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/theme.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -31,10 +29,21 @@
 	</nav>
 
 	<div class="row">
-		<div>
-			<h1 class="text-center">Login</h1>
-		</div>
+		<div><h1 class="text-center">Login</h1></div>
 		<div class="col-sm-10 col-xs-offset-1">
+			<?php if($loginErrorFlag==true){ ?>
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+					<span aria-hidden="true">×</span></button>
+					<strong>Error</strong>：　ログインID、またはパスワードが異なります
+				</div>
+			<?php }elseif ($logoutSuccessFlag == true){ ?>
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+					<span aria-hidden="true">×</span></button>
+					<strong>Success</strong>：　ログアウトしました
+				</div>
+			<?php } ?>
 			<hr>
 		</div>
 	</div>
@@ -62,9 +71,7 @@
 		</div>
 	</form>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

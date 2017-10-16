@@ -47,6 +47,31 @@
 			<h1 class="text-center">Create user</h1>
 		</div>
 		<div class="col-sm-10 col-xs-offset-1">
+			<?php if($userCreateFlag==1){ ?>
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+					<span aria-hidden="true">×</span></button>
+					<strong>Error</strong>：　未入力項目があります。
+				</div>
+			<?php }else if($userCreateFlag==2){ ?>
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+					<span aria-hidden="true">×</span></button>
+					<strong>Error</strong>：　パスワードが不一致です。
+				</div>
+			<?php }else if($userCreateFlag==3){ ?>
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+					<span aria-hidden="true">×</span></button>
+					<strong>Error</strong>：　ログインIDが重複しています。
+				</div>
+			<?php }else if($userCreateFlag==4){ ?>
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+					<span aria-hidden="true">×</span></button>
+					<strong>Success</strong>：　ユーザが追加されました。
+				</div>
+			<?php } ?>
 			<hr>
 		</div>
 

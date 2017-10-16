@@ -50,6 +50,10 @@
 
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="pull-right">
+
+			<?php if($loginUser->id == 1){ ?>
+				<a href="./characterCreate" class="btn btn-default" role="button">Add Character</a>
+			<?php } ?>
 			<a href="./characterList?id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">Character List</a>
 		</div>
 	</div>

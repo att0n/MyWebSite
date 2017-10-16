@@ -49,25 +49,53 @@
 		<div>
 			<h1 class="text-center">Character List</h1>
 			<h3>
+			<?php if($searchFlag == false){ ?>
 				<p class="small text-center">達成率 <?php echo $chara->count() ?>／<?php echo $all_chara?></p>
+			<?php }else{ ?>
+				<p class="small text-center">検索結果：<?php echo $chara->count() ?>件</p>
+			<?php } ?>
 			</h3>
 		</div>
 		<div class="col-sm-10 col-xs-offset-1">
-			<div class="input-group">
-				<span class="input-group-addon">ID</span>
+
+			<form action="./characterSearchID?userID=<?php echo $loginUser->id?>" method="post">
+			{!! csrf_field() !!}
+				<div class="input-group">
+					<span class="input-group-addon">ID</span>
 					<input type="text"class="form-control" placeholder="character ID" name="chara_id">
 					<span class="input-group-btn">
-					<button type="button" class="btn btn-default">Search</button>
-				</span>
-			</div>
+						<button type="submit" class="btn btn-default">Search</button>
+					</span>
+				</div>
+			</form>
+
 			<div class="col-xs-12" style="height: 1em;"></div>
-			<div class="input-group">
-				<span class="input-group-addon">name</span>
+
+			<form action="./characterSearchName?userID=<?php echo $loginUser->id?>" method="post">
+			{!! csrf_field() !!}
+				<div class="input-group">
+					<span class="input-group-addon">name</span>
 					<input type="text" class="form-control" placeholder="character name" name="chara_name">
 					<span class="input-group-btn">
-					<button type="button" class="btn btn-default">Search</button>
-				</span>
+						<button type="submit" class="btn btn-default">Search</button>
+					</span>
+				</div>
+			</form>
+
+			<div class="col-xs-12" style="height: 1em;"></div>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					Rarity
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="./searchRarity?rarity=3">SSR</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="./searchRarity?rarity=2">SR</a></li>
+					<li role="presentation"><a role="menuitem" tabindex="-1" href="./searchRarity?rarity=1">R</a></li>
+				</ul>
 			</div>
+
 			<hr>
 		</div>
 	</div>
@@ -79,9 +107,9 @@
 				<tr>
 				<?php for($i=0; $i<count($chara); $i++){ ?>
 
-					<td><a href="./characterDetail?id=<?php echo $chara[$i]->chara_id?>&uId=<?php echo $loginUser->id ?>" class="thumbnail">
-					<img src="./images/<?php echo $chara[$i]->chara_image?>">
-					</a></td>
+						<td><a href="./characterDetail?id=<?php echo $chara[$i]->chara_id?>&uId=<?php echo $loginUser->id ?>" class="thumbnail">
+						<img src="./images/100x100/<?php echo $chara[$i]->chara_image?>">
+						</a></td>
 
 				<?php } ?>
 				</tr>

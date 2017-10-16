@@ -22,17 +22,30 @@ use App\Http\Controllers\Controller;
 
 Route::get('/','Controller@view');
 
-Route::post('main' , 'Controller@login');
+Route::post('/main' , 'Controller@login');
+Route::get('/main','Controller@login2');
 
 Route::get('/logout','Controller@logout');
 
 Route::get('/userList','Controller@userList');
 
-Route::get('/mainScreen', function () {return view('main');});
+Route::get('/mainScreen', function () {
+    if(empty(session('loginUserKey'))){
+        return view('welcome',['loginErrorFlag' => false, 'logoutSuccessFlag' => false]);
+    }else{
+        return view('main');
+    }
+});
 
 Route::get('/detail','Controller@userdetail');
 
-Route::get('/create', function () {return view('create');});
+Route::get('/create', function () {
+    if(empty(session('loginUserKey'))){
+        return view('welcome',['loginErrorFlag' => false, 'logoutSuccessFlag' => false]);
+    }else{
+        return view('create',['userCreateFlag' => 0]);
+    }
+});
 
 Route::post('/userCreate' , 'Controller@userCreate');
 
@@ -50,3 +63,20 @@ Route::get('/gatya' , 'Controller@gatya');
 
 Route::post('/gatyaResult','Controller@gatyaResult');
 
+Route::post('/characterSearchID','Controller@searchCharaID');
+
+Route::post('/characterSearchName','Controller@searchCharaName');
+
+Route::get('/searchRarity' , 'Controller@searchRarity');
+
+Route::get('/characterCreate' , function () {
+    if(empty(session('loginUserKey'))){
+        return view('welcome',['loginErrorFlag' => false, 'logoutSuccessFlag' => false]);
+    }else{
+        return view('characterCreate', ['addFlag' => 0]);
+    }
+});
+
+Route::post('/addChara','Controller@addChara');
+
+Route::get('/reset' , 'Controller@reset');

@@ -17,6 +17,11 @@
 			location.href = "./logout";
 		}
 	}
+	function reset(id) {
+		if(window.confirm("達成率リセットしますか？")){
+			location.href = "./reset?id="+ id;
+		}
+	}
 </script>
 </head>
 <body>
@@ -45,7 +50,8 @@
 
 	<div class="row">
 		<div>
-			<h1 class="text-center">Detail</h1>
+			<h1 class="text-center">Detail
+			</h1>
 		</div>
 		<div class="col-sm-10 col-xs-offset-1">
 			<hr>
@@ -53,7 +59,7 @@
 	</div>
 
 	<div class="row">
-		<form class="form-horizontal" action="userList.html">
+		<form class="form-horizontal">
 
 			<div class="form-group">
 				<label class="col-sm-5 control-label" for="InputEmail">Login ID</label>
@@ -88,10 +94,17 @@
 			<div class="form-group">
 				<label class="col-sm-5 control-label" for="InputUserName">Complate rate</label>
 				<div class="col-sm-5">
-					<p class="form-control-static text-center"><?php echo $have_chara ?>／<?php echo $all_chara ?></p>
+					<p class="form-control-static text-center"><?php echo $have_chara ?>／<?php echo $all_chara ?>
+
+					<?php if($loginUser->id == 1 || $loginUser->id == $user->id){ ?>
+						<a onclick="reset(<?php echo $user->id ?>)" class="btn btn-warning btn-xs" role="button">Reset</a>
+					<?php } ?>
+
+					</p>
 				</div>
 			</div>
 		</form>
+
 	</div>
 
 

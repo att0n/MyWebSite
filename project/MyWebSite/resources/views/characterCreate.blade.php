@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Update</title>
+<title>CreateUser</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/theme.min.css" rel="stylesheet">
 <?php
@@ -44,63 +44,84 @@
 
 	<div class="row">
 		<div>
-			<h1 class="text-center">Update</h1>
+			<h1 class="text-center">Add character</h1>
 		</div>
 		<div class="col-sm-10 col-xs-offset-1">
-			<?php if($errorFlag == true){ ?>
+
+			<?php if($addFlag==1){ ?>
 				<div class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
 					<span aria-hidden="true">×</span></button>
-					<strong>Error</strong>：　入力された内容は正しくありません。
+					<strong>Error</strong>：　未入力項目があります。
 				</div>
-			<?php } ?>
+			<?php }else if($addFlag==2){ ?>
+				<div class="alert alert-success alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+					<span aria-hidden="true">×</span></button>
+					<strong>Success</strong>：　キャラクターを追加しました。
+				</div>
+			<?php }?>
+
 			<hr>
 		</div>
 
 		<div class="col-xs-12">
-			<form class="form-horizontal" action="./userUpdate?id=<?php echo $user->id ?>" method="post">
+			<form class="form-horizontal" action="./addChara" method="post">
 			{!! csrf_field() !!}
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="InputEmail">Login ID</label>
-					<div class="col-sm-7"><p class="form-control-static"><?php echo $user->login_id ?></p></div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="InputPassword">Password</label>
+					<label class="col-sm-3 control-label" for="InputSelect">Rarity</label>
 					<div class="col-sm-7">
-						<input type="password" class="form-control" id="InputPassword" name="pass" placeholder="Password">
+						<select class="form-control" name="chara_rarity">
+							<option value="1">R</option>
+							<option value="2">SR</option>
+							<option value="3">SSR</option>
+						</select>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="InputPassword2">Password(確認)</label>
+					<label class="col-sm-3 control-label" for="InputName">Name</label>
 					<div class="col-sm-7">
-						<input type="password" class="form-control" id="InputPassword2" name="pass2" placeholder="Password(確認)">
+						<input class="form-control" placeholder="Character Name" name="chara_name">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="InputImage">Image File Name</label>
+					<div class="col-sm-7">
+						<input class="form-control" placeholder="File Name" name="chara_image">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="InputBirthday">Birthday</label>
+					<div class="col-sm-7">
+						<input type="date" class="form-control" id="InputBirthday" placeholder="Birthday" name="chara_birth">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="InputUserName">User name</label>
+					<label class="col-sm-3 control-label" for="InputSelect">Blood</label>
 					<div class="col-sm-7">
-						<input class="form-control" id="InputUserName" placeholder="user name" value="<?php echo $user->name ?>" name="name">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="InputUserName">Birthday</label>
-					<div class="col-sm-7">
-						<input type="date" class="form-control" id="InputBirthday" name="birth">
+						<select class="form-control" name="chara_blood">
+							<option>A</option>
+							<option>O</option>
+							<option>B</option>
+							<option>AB</option>
+						</select>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-sm-7 col-md-offset-3">
-						<button type="submit" class="btn btn-default btn-block">更新</button>
+						<button type="submit" class="btn btn-default btn-block">Add</button>
 					</div>
 				</div>
 
 			</form>
 		</div>
-	</div>
 
 	</div>
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </body>
