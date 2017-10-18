@@ -6,7 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Result</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-
+<style type="text/css">
+img.img-circle{
+    width: 100px;
+    height: auto;
+}
+</style>
 </head>
 <body>
 
@@ -18,7 +23,7 @@
 
 				<?php for($i=0; $i<count($result); $i++){ ?>
 				<td><a data-toggle="modal" data-target="#sampleModal<?php echo $i ?>">
-					<img src="./images/100x100/<?php echo $result[$i]->chara_image ?>" class="img-circle">
+					<img src="<?php echo $result[$i]->chara_image ?>" class="img-circle">
 				</a></td>
 				<?php if($i == 4){ echo "</tr><tr>";} }?>
 
@@ -45,7 +50,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="media">
-					<a class="media-left"> <img src="./images/<?php echo $result[$i]->chara_image ?>"></a>
+					<a class="media-left"> <img src="<?php echo $result[$i]->chara_image ?>"></a>
 					<div class="media-body">
 						<div class="well well-lg">ID : <?php echo $result[$i]->id ?></div>
 						<div class="well well-lg">Birthday：<?php echo $result[$i]->chara_birth ?></div>

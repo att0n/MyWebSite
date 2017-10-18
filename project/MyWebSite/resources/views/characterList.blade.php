@@ -8,6 +8,9 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/theme.min.css" rel="stylesheet">
+<style type="text/css">
+img.chara{width:100px;height:auto;}
+</style>
 <?php
     $loginUser = session('loginUserKey');
 ?>
@@ -19,6 +22,7 @@
 		}
 	}
 </script>
+
 </head>
 <body>
 
@@ -108,7 +112,8 @@
 				<?php for($i=0; $i<count($chara); $i++){ ?>
 
 						<td><a href="./characterDetail?id=<?php echo $chara[$i]->chara_id?>&uId=<?php echo $loginUser->id ?>" class="thumbnail">
-						<img src="./images/100x100/<?php echo $chara[$i]->chara_image?>">
+
+						<img src="<?php echo $chara[$i]->chara_image?>" class="chara">
 						</a></td>
 
 				<?php } ?>

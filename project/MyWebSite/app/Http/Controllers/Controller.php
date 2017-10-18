@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
@@ -426,21 +428,28 @@ class Controller extends BaseController
     }
 
     //キャラクターの追加
-    public function addChara(){
+    public function addChara(Request $request){
         $chara_rarity = $_POST['chara_rarity'];
         $chara_name = $_POST['chara_name'];
-        $chara_image = $_POST['chara_image'].".png";
         $chara_birth = $_POST['chara_birth'];
         $chara_blood = $_POST['chara_blood'];
 
-        if($chara_name=="" || $chara_image=="" || $chara_birth==""){
-            $addFlag = 1;
-        }else{
-            $addFlag = 2;
-            DB::table('chara')->insert(['chara_rate' => $chara_rarity, 'chara_image' => $chara_image, 'chara_name' => $chara_name, 'chara_birth' => $chara_birth, 'chara_blood' => $chara_blood]);
-        }
 
-        return view('characterCreate', ['addFlag' => $addFlag]);
+         if($chara_name=="" || $chara_birth==""){
+             $addFlag = 1;
+         }else{
+             if ($request->hasFile('chara_image1')) {
+                 $addFlag = 2;
+                 $n1 = $request->chara_image1->getClientOriginalName();
+                 $request->chara_image1->storeAs('images/01', $n1);
+                 $image_name = Storage::url('images/01/ssr2.png');
+
+                 DB::table('chara')->insert(['chara_rate' => $chara_rarity, 'chara_image' => $image_name, 'chara_name' => $chara_name, 'chara_birth' => $chara_birth, 'chara_blood' => $chara_blood]);
+             }else{
+                 $addFlag = 3;
+             }
+         }
+         return view('characterCreate', ['addFlag' => $addFlag]);
     }
 
     //達成率リセット

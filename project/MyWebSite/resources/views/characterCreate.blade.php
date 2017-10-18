@@ -60,13 +60,19 @@
 					<span aria-hidden="true">×</span></button>
 					<strong>Success</strong>：　キャラクターを追加しました。
 				</div>
+			<?php }else if($addFlag==3){ ?>
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+					<span aria-hidden="true">×</span></button>
+					<strong>Error</strong>：　画像ファイルがありません。
+				</div>
 			<?php }?>
 
 			<hr>
 		</div>
 
 		<div class="col-xs-12">
-			<form class="form-horizontal" action="./addChara" method="post">
+			<form class="form-horizontal" action="./addChara" method="post" enctype="multipart/form-data">
 			{!! csrf_field() !!}
 
 				<div class="form-group">
@@ -87,9 +93,10 @@
 				</div>
 
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="InputImage">Image File Name</label>
+					<label class="col-sm-3 control-label" for="InputFile">Image</label>
 					<div class="col-sm-7">
-						<input class="form-control" placeholder="File Name" name="chara_image">
+						<input type="file" name="chara_image1">
+						<p class="help-block">256*256pxの画像</p>
 					</div>
 				</div>
 

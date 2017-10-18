@@ -54,7 +54,7 @@
 
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 media">
-			<a class="media-left"> <img src="./images/<?php echo $chara->chara_image ?>"></a>
+			<a class="media-left"> <img src="<?php echo $chara->chara_image ?>"></a>
 			<div class="media-body">
 				<div class="well well-lg">ID：<?php echo $chara->chara_id ?></div>
 				<div class="well well-lg">Birthday：<?php echo $chara->chara_birth ?></div>
