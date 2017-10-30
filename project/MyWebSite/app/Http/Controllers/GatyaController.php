@@ -17,49 +17,30 @@ class GatyaController extends BaseController
         if(empty(session('loginUserKey'))){
             return view('welcome',['loginErrorFlag' => false, 'logoutSuccessFlag' => false]);
         }else{
-
-            $gatya = new gatya();
-
             $id = $request->input('id');
             $cnt = $request->input('num');
             $chara = DB::table('chara')->get();
+            $gatya = new gatya();
             $resultArray = array();
-            $ssr = false;
-            $sr = false;
-            $r = false;
 
-            //確立の合計値
-            $gatya->setMax(0);       //max=0
-            foreach ($chara as $chara_rate){
-                $num = $gatya->maxRate($chara_rate->chara_rate,$gatya->getMax());
-                $gatya->setMax($num);
-            }
-            $max = $gatya->getMax();
+            //確立合計値
+            $gatya->sumRate();
+            $max =  $gatya->getMax();
 
+            //1連
             if($cnt == 1){
-
                 $resultArray[] = $gatya->gatya1($max);
                 DB::table('chara_have')->insert(['id' => $id, 'chara_id' => $resultArray[0]->id]);
-
-                if($resultArray[0]->chara_rate == 3){$ssr = true;
-                }elseif ($resultArray[0]->chara_rate == 2){$sr = true;
-                }else{$r = true;}
+                $gatya->rarityFlag($resultArray[0]->chara_rate);
+            //$cnt連
             }else{
-                for($i=0; $i<10; $i++){
+                for($i=0; $i<$cnt; $i++){
                     $resultArray[] = $gatya->gatya1($max);
-                }
-                for ($i=0; $i<$cnt; $i++){
                     DB::table('chara_have')->insert(['id' => $id, 'chara_id' => $resultArray[$i]->id]);
-
-                    if($resultArray[$i]->chara_rate == 3){$ssr = true;
-                    }else if($resultArray[$i]->chara_rate == 2){$sr = true;
-                    }else {$r = true;}
+                    $gatya->rarityFlag($resultArray[$i]->chara_rate);
                 }
             }
-            if($ssr == true){$rate ="ssr";
-            }elseif ($ssr == false && $sr == true){$rate = "sr";
-            }else{$rate = "r";}
-
+            $rate = $gatya->rarityCss();
             return view('result' , ['result' => $resultArray,'rate' => $rate]);
         }
     }

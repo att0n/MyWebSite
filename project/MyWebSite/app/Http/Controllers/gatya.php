@@ -1,10 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 
 class gatya extends BaseController{
@@ -12,6 +9,8 @@ class gatya extends BaseController{
     protected $ssr = false;
     protected $sr = false;
     protected $r = false;
+    protected $rate;
+
     /**
      * @return $max
      */
@@ -42,6 +41,14 @@ class gatya extends BaseController{
     public function getR()
     {
         return $this->r;
+    }
+
+    /**
+     * @return $rate
+     */
+    public function getRate()
+    {
+        return $this->rate;
     }
 
     /**
@@ -76,16 +83,30 @@ class gatya extends BaseController{
         $this->r = $r;
     }
 
-    //確立を足す
-    public function maxRate($num,$max){
-        if($num==3){
-            $max+=5;
-        }else if($num==2){
-            $max+=30;
-        }else{
-            $max+=100;
+    /**
+     * @param boolean $rate
+     */
+    public function setRate($rate)
+    {
+        $this->rate = $rate;
+    }
+
+    //合計値計算
+    public function sumRate(){
+        $chara = DB::table('chara')->get();
+        self::setMax(0);
+        foreach ($chara as $chara_rate){
+            $max = self::getMax();
+
+            if($chara_rate->chara_rate==3){
+                $max+=5;
+            }elseif ($chara_rate->chara_rate==2){
+                $max+=30;
+            }else{
+                $max+=100;
+            }
+            self::setMax($max);
         }
-        return $max;
     }
 
     //確立でキャラクターを排出する
@@ -106,5 +127,26 @@ class gatya extends BaseController{
         return $hitChara;
     }
 
+    //レアリティフラグ
+    public function rarityFlag($chara_rarity){
+        if($chara_rarity==3){
+            self::setSsr(true);
+        }else if($chara_rarity==2){
+            self::setSr(true);
+        }else{
+            self::setR(true);
+        }
+    }
+
+    //レアリティ演出
+    public function rarityCss(){
+        if(self::getSsr()==true){
+            return 'ssr';
+        }else if(self::getSsr()==false && self::getSr()==true){
+            return 'sr';
+        }else{
+            return 'r';
+        }
+    }
 
 }
