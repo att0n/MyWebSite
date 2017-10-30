@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbarEexample9">
-				<p class="navbar-text" style="color: #FFFFFF;">- <?php echo $loginUser->name?> さん！</p>
+				<p class="navbar-text" style="color: #FFFFFF;">- {{ $loginUser->name }} さん！</p>
 				<a onclick="logout()" class="btn btn-default navbar-btn navbar-right" role="button">Logout</a>
 				<a href="./userList" class="btn btn-default navbar-btn navbar-right" role="button">List</a>
 				<a href="./create" class="btn btn-default navbar-btn navbar-right" role="button">Create</a>
@@ -51,10 +51,10 @@
 	<div class="col-sm-8 col-sm-offset-2">
 		<div class="pull-right">
 
-			<?php if($loginUser->id == 1){ ?>
+			@if($loginUser->id == 1)
 				<a href="./characterCreate" class="btn btn-default" role="button">Add Character</a>
-			<?php } ?>
-			<a href="./characterList?id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">Character List</a>
+			@endif
+			<a href="./characterList?id={{ $loginUser->id }}" class="btn btn-default" role="button">Character List</a>
 		</div>
 	</div>
 	<div class="col-sm-8 col-sm-offset-2">
@@ -62,11 +62,11 @@
 		<hr>
 		<h3><p class="small">回したい回数のボタンを押してください</p></h3>
 		<div class="btn-group btn-group-justified" role="group">
-			<a href="./gatya?num=1&id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">1回</a>
+			<a href="./gatya?num=1&id={{ $loginUser->id }}" class="btn btn-default" role="button">1回</a>
 		</div>
 		<div class="col-xs-12" style="height: 1em;"></div>
 		<div class="btn-group btn-group-justified" role="group">
-			<a href="./gatya?num=10&id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">10回</a>
+			<a href="./gatya?num=10&id={{ $loginUser->id }}" class="btn btn-default" role="button">10回</a>
 		</div>
 
 	</div>

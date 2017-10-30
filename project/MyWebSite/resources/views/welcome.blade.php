@@ -31,19 +31,30 @@
 	<div class="row">
 		<div><h1 class="text-center">Login</h1></div>
 		<div class="col-sm-10 col-xs-offset-1">
-			<?php if($loginErrorFlag==true){ ?>
+
+			@if (count($errors) > 0)
+    			<div class="alert alert-danger">
+        			<ul>
+            			@foreach ($errors->all() as $error)
+                			<li>{{ $error }}</li>
+            			@endforeach
+        			</ul>
+    			</div>
+			@endif
+
+			@if($loginErrorFlag==true)
 				<div class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
 					<span aria-hidden="true">×</span></button>
 					<strong>Error</strong>：　ログインID、またはパスワードが異なります
 				</div>
-			<?php }elseif ($logoutSuccessFlag == true){ ?>
+			@elseif ($logoutSuccessFlag == true)
 				<div class="alert alert-success alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
 					<span aria-hidden="true">×</span></button>
 					<strong>Success</strong>：　ログアウトしました
 				</div>
-			<?php } ?>
+			@endif
 			<hr>
 		</div>
 	</div>

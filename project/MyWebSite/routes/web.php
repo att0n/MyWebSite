@@ -22,12 +22,13 @@ use App\Http\Controllers\Controller;
 
 Route::get('/','Controller@view');
 
-Route::post('/main' , 'Controller@login');
-Route::get('/main','Controller@login2');
+Route::post('/main' , 'LoginController@login');
 
-Route::get('/logout','Controller@logout');
+Route::get('/main','LoginController@login2');
 
-Route::get('/userList','Controller@userList');
+Route::get('/logout','LogoutController@logout');
+
+Route::get('/userList','ListController@userList');
 
 Route::get('/mainScreen', function () {
     if(empty(session('loginUserKey'))){
@@ -37,7 +38,7 @@ Route::get('/mainScreen', function () {
     }
 });
 
-Route::get('/detail','Controller@userdetail');
+Route::get('/detail','DetailController@userdetail');
 
 Route::get('/create', function () {
     if(empty(session('loginUserKey'))){
@@ -47,27 +48,27 @@ Route::get('/create', function () {
     }
 });
 
-Route::post('/userCreate' , 'Controller@userCreate');
+Route::post('/userCreate' , 'CreateController@userCreate');
 
-Route::get('/update' , 'Controller@update');
+Route::get('/update' , 'UpdateController@update');
 
-Route::post('/userUpdate' , 'Controller@userUpdate');
+Route::post('/userUpdate' , 'UpdateController@userUpdate');
 
-Route::get('/delete' , 'Controller@userDelete');
+Route::get('/delete' , 'DeleteController@userDelete');
 
-Route::get('/characterList' , 'Controller@characterList');
+Route::get('/characterList' , 'ListController@characterList');
 
-Route::get('/characterDetail' , 'Controller@characterDetail');
+Route::get('/characterDetail' , 'DetailController@characterDetail');
 
-Route::get('/gatya' , 'Controller@gatya');
+Route::get('/gatya' , 'GatyaController@gatya');
 
-Route::post('/gatyaResult','Controller@gatyaResult');
+Route::post('/gatyaResult','GatyaController@gatyaResult');
 
-Route::post('/characterSearchID','Controller@searchCharaID');
+Route::post('/characterSearchID','SearchController@searchCharaID');
 
-Route::post('/characterSearchName','Controller@searchCharaName');
+Route::post('/characterSearchName','SearchController@searchCharaName');
 
-Route::get('/searchRarity' , 'Controller@searchRarity');
+Route::get('/searchRarity' , 'SearchController@searchRarity');
 
 Route::get('/characterCreate' , function () {
     if(empty(session('loginUserKey'))){
@@ -77,6 +78,6 @@ Route::get('/characterCreate' , function () {
     }
 });
 
-Route::post('/addChara','Controller@addChara');
+Route::post('/addChara','AddController@addChara');
 
-Route::get('/reset' , 'Controller@reset');
+Route::get('/reset' , 'ResetController@reset');

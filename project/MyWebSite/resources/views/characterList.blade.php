@@ -40,7 +40,7 @@ img.chara{width:100px;height:auto;}
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbarEexample9">
-				<p class="navbar-text" style="color: #FFFFFF;">- <?php echo $loginUser->name?> さん！</p>
+				<p class="navbar-text" style="color: #FFFFFF;">- {{$loginUser->name}} さん！</p>
 				<a onclick="logout()" class="btn btn-default navbar-btn navbar-right" role="button">Logout</a>
 				<a href="./userList" class="btn btn-default navbar-btn navbar-right" role="button">List</a>
 				<a href="./create" class="btn btn-default navbar-btn navbar-right" role="button">Create</a>
@@ -53,16 +53,16 @@ img.chara{width:100px;height:auto;}
 		<div>
 			<h1 class="text-center">Character List</h1>
 			<h3>
-			<?php if($searchFlag == false){ ?>
-				<p class="small text-center">達成率 <?php echo $chara->count() ?>／<?php echo $all_chara?></p>
-			<?php }else{ ?>
-				<p class="small text-center">検索結果：<?php echo $chara->count() ?>件</p>
-			<?php } ?>
+			@if($searchFlag == false){
+				<p class="small text-center">達成率 {{$chara->count() }}／{{$all_chara}}</p>
+			@else
+				<p class="small text-center">検索結果：{{$chara->count()}}件</p>
+			@endif
 			</h3>
 		</div>
 		<div class="col-sm-10 col-xs-offset-1">
 
-			<form action="./characterSearchID?userID=<?php echo $loginUser->id?>" method="post">
+			<form action="./characterSearchID?userID={{ $loginUser->id }}" method="post">
 			{!! csrf_field() !!}
 				<div class="input-group">
 					<span class="input-group-addon">ID</span>
@@ -75,7 +75,7 @@ img.chara{width:100px;height:auto;}
 
 			<div class="col-xs-12" style="height: 1em;"></div>
 
-			<form action="./characterSearchName?userID=<?php echo $loginUser->id?>" method="post">
+			<form action="./characterSearchName?userID={{ $loginUser->id}}" method="post">
 			{!! csrf_field() !!}
 				<div class="input-group">
 					<span class="input-group-addon">name</span>
@@ -109,14 +109,11 @@ img.chara{width:100px;height:auto;}
 		<table>
 			<tbody>
 				<tr>
-				<?php for($i=0; $i<count($chara); $i++){ ?>
-
-						<td><a href="./characterDetail?id=<?php echo $chara[$i]->chara_id?>&uId=<?php echo $loginUser->id ?>" class="thumbnail">
-
-						<img src="<?php echo $chara[$i]->chara_image?>" class="chara">
+				@foreach($chara as $character)
+						<td><a href="./characterDetail?id={{ $character->chara_id }}&uId={{ $loginUser->id }}" class="thumbnail">
+						<img src="{{ $character->chara_image }}" class="chara">
 						</a></td>
-
-				<?php } ?>
+				@endforeach
 				</tr>
 			</tbody>
 		</table>

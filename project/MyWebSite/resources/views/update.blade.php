@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbarEexample9">
-				<p class="navbar-text" style="color: #FFFFFF;">- <?php echo $loginUser->name?> さん！</p>
+				<p class="navbar-text" style="color: #FFFFFF;">- {{ $loginUser->name }} さん！</p>
 				<a onclick="logout()" class="btn btn-default navbar-btn navbar-right" role="button">Logout</a>
 				<a href="./userList" class="btn btn-default navbar-btn navbar-right" role="button">List</a>
 				<a href="./create" class="btn btn-default navbar-btn navbar-right" role="button">Create</a>
@@ -47,23 +47,33 @@
 			<h1 class="text-center">Update</h1>
 		</div>
 		<div class="col-sm-10 col-xs-offset-1">
-			<?php if($errorFlag == true){ ?>
+			@if (count($errors) > 0)
+    			<div class="alert alert-danger">
+        			<ul>
+            			@foreach ($errors->all() as $error)
+                			<li>{{ $error }}</li>
+            			@endforeach
+        			</ul>
+    			</div>
+			@endif
+
+			@if($errorFlag == true)
 				<div class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
 					<span aria-hidden="true">×</span></button>
-					<strong>Error</strong>：　入力された内容は正しくありません。
+					<strong>Error</strong>：　未入力の項目があります。
 				</div>
-			<?php } ?>
+			@endif
 			<hr>
 		</div>
 
 		<div class="col-xs-12">
-			<form class="form-horizontal" action="./userUpdate?id=<?php echo $user->id ?>" method="post">
+			<form class="form-horizontal" action="./userUpdate?id={{ $user->id }}" method="post">
 			{!! csrf_field() !!}
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="InputEmail">Login ID</label>
-					<div class="col-sm-7"><p class="form-control-static"><?php echo $user->login_id ?></p></div>
+					<div class="col-sm-7"><p class="form-control-static">{{ $user->login_id }}</p></div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="InputPassword">Password</label>
@@ -80,13 +90,13 @@
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="InputUserName">User name</label>
 					<div class="col-sm-7">
-						<input class="form-control" id="InputUserName" placeholder="user name" value="<?php echo $user->name ?>" name="name">
+						<input class="form-control" id="InputUserName" placeholder="user name" value="{{ $user->name }}" name="name">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label" for="InputUserName">Birthday</label>
 					<div class="col-sm-7">
-						<input type="date" class="form-control" id="InputBirthday" name="birth">
+						<input type="date" class="form-control" id="InputBirthday" name="birth" value="{{ $user->birth_date }}">
 					</div>
 				</div>
 

@@ -19,7 +19,6 @@
 </script>
 </head>
 <body>
-
 	<nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -34,7 +33,7 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbarEexample9">
-				<p class="navbar-text" style="color: #FFFFFF;">- <?php echo $loginUser->name?> さん！</p>
+				<p class="navbar-text" style="color: #FFFFFF;">- {{ $loginUser->name }} さん！</p>
 				<a onclick="logout()" class="btn btn-default navbar-btn navbar-right" role="button">Logout</a>
 				<a href="./userList" class="btn btn-default navbar-btn navbar-right" role="button">List</a>
 				<a href="./create" class="btn btn-default navbar-btn navbar-right" role="button">Create</a>
@@ -47,31 +46,15 @@
 			<h1 class="text-center">Create user</h1>
 		</div>
 		<div class="col-sm-10 col-xs-offset-1">
-			<?php if($userCreateFlag==1){ ?>
-				<div class="alert alert-danger alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
-					<span aria-hidden="true">×</span></button>
-					<strong>Error</strong>：　未入力項目があります。
-				</div>
-			<?php }else if($userCreateFlag==2){ ?>
-				<div class="alert alert-danger alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
-					<span aria-hidden="true">×</span></button>
-					<strong>Error</strong>：　パスワードが不一致です。
-				</div>
-			<?php }else if($userCreateFlag==3){ ?>
-				<div class="alert alert-danger alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
-					<span aria-hidden="true">×</span></button>
-					<strong>Error</strong>：　ログインIDが重複しています。
-				</div>
-			<?php }else if($userCreateFlag==4){ ?>
-				<div class="alert alert-success alert-dismissible" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
-					<span aria-hidden="true">×</span></button>
-					<strong>Success</strong>：　ユーザが追加されました。
-				</div>
-			<?php } ?>
+			@if (count($errors) > 0)
+    			<div class="alert alert-danger">
+        			<ul>
+            			@foreach ($errors->all() as $error)
+                			<li>{{ $error }}</li>
+            			@endforeach
+        			</ul>
+    			</div>
+			@endif
 			<hr>
 		</div>
 

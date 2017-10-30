@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbarEexample9">
-				<p class="navbar-text" style="color: #FFFFFF;">- <?php echo $loginUser->name?> さん！</p>
+				<p class="navbar-text" style="color: #FFFFFF;">- {{$loginUser->name}} さん！</p>
 				<a onclick="logout()" class="btn btn-default navbar-btn navbar-right" role="button">Logout</a>
 				<a href="./userList" class="btn btn-default navbar-btn navbar-right" role="button">List</a>
 				<a href="./create" class="btn btn-default navbar-btn navbar-right" role="button">Create</a>
@@ -44,9 +44,9 @@
 
 	<div class="row">
 		<div class="col-sm-10 col-xs-offset-1">
-			<h1><?php echo $chara->chara_name ?>
+			<h1>{{$chara->chara_name}}
 				<div class="pull-right">
-					<a href="./characterList?id=<?php echo $loginUser->id ?>" class="btn btn-default" role="button">Back</a>
+					<a href="./characterList?id={{$loginUser->id}}" class="btn btn-default" role="button">Back</a>
 				</div>
 			</h1><hr>
 		</div>
@@ -54,12 +54,12 @@
 
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 media">
-			<a class="media-left"> <img src="<?php echo $chara->chara_image ?>"></a>
+			<a class="media-left"> <img src="{{$chara->chara_image}}"></a>
 			<div class="media-body">
-				<div class="well well-lg">ID：<?php echo $chara->chara_id ?></div>
-				<div class="well well-lg">Birthday：<?php echo $chara->chara_birth ?></div>
-				<div class="well well-lg">blood：<?php echo $chara->chara_blood ?></div>
-				<div class="well well-lg">出現回数：<?php echo $chara->cnt ?>回</div>
+				<div class="well well-lg">ID：{{$chara->chara_id }}</div>
+				<div class="well well-lg">Birthday：{{ $chara->chara_birth }}</div>
+				<div class="well well-lg">blood：{{ $chara->chara_blood }}</div>
+				<div class="well well-lg">出現回数：{{ $chara->cnt }}回</div>
 			</div>
 		</div>
 	</div>
